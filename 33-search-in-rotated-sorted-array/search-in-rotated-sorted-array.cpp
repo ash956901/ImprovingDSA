@@ -41,7 +41,6 @@ public:
 
     int search(vector<int>& nums, int target) {
         int peak = getPeak(nums);
-        cout<<peak<<endl;
         int firstPart=search(nums,target,0,peak);
         int secondPart=search(nums,target,peak+1,nums.size()-1);
         if(firstPart==-1 && secondPart==-1 ) return -1;
