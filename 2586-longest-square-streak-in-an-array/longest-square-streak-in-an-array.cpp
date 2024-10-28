@@ -3,7 +3,7 @@ public:
     int squarebs(vector<int>& nums,int i){
         long long stf=pow(nums[i],2);
 
-        int s=i;
+        int s=i+1;
         int e=nums.size()-1;
         int mid=s+(e-s)/2;
         while(s<=e){
