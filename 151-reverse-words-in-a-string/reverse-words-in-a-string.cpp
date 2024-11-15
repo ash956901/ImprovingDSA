@@ -38,8 +38,7 @@ public:
                 i--;
             }
             j=i;
-            cout<<"ANS:"<<ans<<endl;
-            cout<<"i and j:"<<i<<" "<<j<<endl;
+           
 
         }
         ans.pop_back();
