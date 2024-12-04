@@ -7,7 +7,7 @@ public:
             char temp;
             if(str1[i]=='z') temp='a';
             else temp=str1[i]+1;
-            cout<<"temp:"<<temp<<endl;
+            
             if(temp==str2[j] || str1[i]==str2[j]){
                 j++;
                 if(j==str2.size()){
