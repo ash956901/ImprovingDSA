@@ -40,7 +40,7 @@ public:
             slow=slow->next;
             if(slow==fast) return slow;
             fast=fast->next;
-            cout<<"slow:"<<slow->val;
+            
         }
      
 
