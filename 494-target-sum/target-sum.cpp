@@ -6,7 +6,7 @@ class Solution {
             return 0;
         }
         if(dp[i][t+offset] != -1) return dp[i][t+offset];
-        int temp = abs(nums[i]);
+        int temp = nums[i];
         int ans = 0;
         ans += solve(nums,t-temp,i+1,dp,offset);
         ans += solve(nums,t+temp,i+1,dp,offset);
