@@ -1,29 +1,21 @@
 class Solution {
-public:
-    int solve(vector<int>& nums, int i, int target, unordered_map<string, int>& memo) {
-       
-        if (i >= nums.size()) {
-            return target == 0 ? 1 : 0;
+    private:
+    int solve(vector<int>& nums, int t,int i,vector<vector<int>>& dp,int offset){
+        if(i == nums.size()){
+            if(t == 0) return 1;
+            return 0;
         }
-        
-       
-        string key = to_string(i) + "," + to_string(target);
-        
-        if (memo.find(key) != memo.end()) {
-            return memo[key];
-        }
-        
-       
-        int add = solve(nums, i + 1, target - nums[i], memo);
-        int subtract = solve(nums, i + 1, target + nums[i], memo);
-        
-        memo[key] = add + subtract;
-        
-        return memo[key];
+        if(dp[i][t+offset] != -1) return dp[i][t+offset];
+        int temp = abs(nums[i]);
+        int ans = 0;
+        ans += solve(nums,t-temp,i+1,dp,offset);
+        ans += solve(nums,t+temp,i+1,dp,offset);
+        dp[i][t+offset] = ans;
+        return dp[i][t+offset];
     }
-
+public:
     int findTargetSumWays(vector<int>& nums, int target) {
-        unordered_map<string, int> memo;
-        return solve(nums, 0, target, memo);
+        vector<vector<int>> dp(nums.size(),vector<int>(4002,-1));
+        return solve(nums,target,0,dp,2000);
     }
 };
