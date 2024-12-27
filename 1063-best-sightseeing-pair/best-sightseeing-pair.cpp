@@ -9,8 +9,7 @@ public:
             netScore[i]=maxi;
         }
 
-        for(auto i:netScore) cout<<i<<" ";
-        cout<<endl;
+     
         int ans=INT_MIN;
         for(int i=0;i<values.size()-1;i++){
             
