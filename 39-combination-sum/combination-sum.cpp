@@ -17,7 +17,9 @@ public:
         for(int ind=i;ind<candidates.size();ind++){
             temp.push_back(candidates[ind]);
             sum+=candidates[ind];
-            solve(candidates,ind,sum,t,ans,temp);
+            if(sum<=t){
+                  solve(candidates,ind,sum,t,ans,temp);
+            }
             temp.pop_back();
             sum-=candidates[ind];
         }
