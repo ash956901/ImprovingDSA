@@ -1,28 +1,37 @@
 class Solution {
 public:
-    void solve(vector<int> &nums,int i,vector<int> &temp,set<vector<int>>& ans){
-        if(i>=nums.size()) return;
+    vector<vector<int> > subsetsWithDup(vector<int>& nums) {
 
-        for(int j=i;j<nums.size();j++){
-            temp.push_back(nums[j]);
-            ans.insert(temp);
-            solve(nums,j+1,temp,ans);
-            temp.pop_back();
-        }
+
+        sort(nums.begin(), nums.end());
+        vector<int> temp ;
+        vector <vector <int>> ans ;
+        helper(0 , nums , temp , ans);
+
+        return ans;
+    
     }
-    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        set<vector<int>> ans;
-        vector<int> temp;
-        
-        sort(nums.begin(),nums.end());
 
-        solve(nums,0,temp,ans);
+  void helper( int ind , vector <int> nums , vector <int> &temp  , vector <vector<int>> &ans){
 
-        vector<vector<int>> rtn;
-        for(auto i:ans){
-            rtn.push_back(i);
-        }
-        rtn.push_back({});
-        return rtn;
+    if(ind == nums.size()) {
+        ans.push_back(temp);
+        return ;
     }
+
+    
+     temp.push_back(nums[ind]);
+
+      helper(ind +1 , nums , temp , ans);
+      temp.pop_back();
+   
+    while( ind +1 < nums.size() && nums[ind] == nums[ind +1]){
+        ind++;
+    }
+
+        helper(ind +1 , nums , temp , ans);
+    }
+
+  
+
 };
