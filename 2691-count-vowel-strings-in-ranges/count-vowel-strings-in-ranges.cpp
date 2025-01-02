@@ -13,7 +13,7 @@ public:
             ps[i]=sum;
         }
 
-        for(auto i:ps) cout<<i<<" ";
+      
         //get the ans vector
         vector<int> ans(queries.size(),0);
         for(int i=0;i<queries.size();i++){
