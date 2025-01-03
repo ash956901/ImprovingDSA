@@ -59,6 +59,7 @@ public:
                 if(board[i][j]==word[0]){
                     temp.push_back(word[0]);
                     ans=ans|| solve(board,temp,i,j,word,visited);
+                    if(ans) return true;
                     temp.pop_back();
                 }
             }
