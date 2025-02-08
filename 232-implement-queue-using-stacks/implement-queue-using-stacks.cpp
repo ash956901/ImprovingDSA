@@ -30,21 +30,17 @@ public:
     
     int pop() {
         //whenever you pop in a queue , the element from the front goes , so just do normal pop for stack s1
-        if(!s1.empty()){
+      
               int rem=s1.top();
               s1.pop();
               return rem;
-        }
-        return -1;
+     
     }
     
     int peek() {
-        if(!s1.empty()){
+      
             return s1.top();
-        }
-        else{
-            return -1;
-        }
+       
     }
     
     bool empty() {
