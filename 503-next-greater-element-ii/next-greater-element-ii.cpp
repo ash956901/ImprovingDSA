@@ -13,17 +13,14 @@ public:
                     int ngTop=ng.top();
 
                     ng.pop();
-                    nge[ngTop]=i;
+                    nge[ngTop]=nums[i];
                 }
 
                 ng.push(i);
             }
         }
 
-        for(int i=0;i<nums.size();i++){
-           
-            nge[i]=nge[i]!=-1?(nums[nge[i]]):(-1);
-        }
+      
 
         return nge;
     }
