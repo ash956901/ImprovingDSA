@@ -4,7 +4,7 @@ public:
         int count=0;
         stack<int> ng;
         for(int i=0;i<height.size();i++){
-            while(!ng.empty() && height[ng.top()]<=height[i]){
+            while(!ng.empty() && height[ng.top()]<height[i]){
                 int ngTop=ng.top();
                 ng.pop();
 
