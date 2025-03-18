@@ -1,11 +1,10 @@
 class KthLargest {
 public:
     int k;
-    vector<int> stream;
+   
     priority_queue<int,vector<int>,greater<int>> pq;
     KthLargest(int k, vector<int>& nums) {
         this->k=k;
-        this->stream=nums;
         for(auto i:nums){
             pq.push(i);
             while(pq.size()>k){
