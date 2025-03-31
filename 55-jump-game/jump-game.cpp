@@ -5,7 +5,6 @@ public:
         int i=0;
         while(i<nums.size()){
             int curr=nums[i];
-            cout<<"I:"<<i<<endl;
             if(curr==0) return false;
             if(i+curr>=nums.size()-1) return true;
             //find the max within that range
