@@ -36,11 +36,11 @@ public:
                 q.push(make_pair(node->right,make_pair(hd+1,lvl+1)));
             }
         }
-
+        int start=0;
         vector<int> hold;
         for(auto i:m){
             for(auto j:i.second){
-                int start=hold.size();
+                 start=hold.size();
                 for(auto k:j.second){
                     hold.push_back(k);
                 }
