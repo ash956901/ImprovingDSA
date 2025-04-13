@@ -20,7 +20,7 @@ public:
         q.push(make_pair(root,make_pair(0,0)));
 
         while(!q.empty()){
-            auto front=q.front();
+            pair<TreeNode*,pair<int,int>>  front=q.front();
             q.pop();
 
             TreeNode* node=front.first;
