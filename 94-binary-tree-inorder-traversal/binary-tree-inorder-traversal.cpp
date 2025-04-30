@@ -15,18 +15,30 @@ public:
 
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> ans;
-        stack<TreeNode*> s;
-        while(root!=nullptr || !s.empty() ){
-            while(root!=nullptr){
-                s.push(root);
-                root=root->left;
+        while(root!=nullptr){
+            if(root->left==nullptr){
+                ans.push_back(root->val);
+                root=root->right;
             }
+            else{
+                TreeNode* temp=root->left;
+                
+                while((temp->right!=nullptr) && (temp->right!=root)){
+                    temp=temp->right;
+                }
 
-            root=s.top();
-            s.pop();
-            ans.push_back(root->val);
-            root=root->right;
+                if(temp->right==nullptr){
+                    temp->right=root;
+                    root=root->left;
+                }
+                else{
+                    temp->right=nullptr;
+                    ans.push_back(root->val);
+                    root=root->right;
+                }
+            }
         }
+
         return ans;
     }
 };
