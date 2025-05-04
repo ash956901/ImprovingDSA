@@ -30,8 +30,8 @@ public:
         buildGraph(root,nullptr);
         queue<pair<int,int>> q;
         q.push(make_pair(target->val,0));
-        unordered_map<int,bool> visited;
-        visited[target->val]=true;
+        unordered_set<int> visited;
+        visited.insert(target->val);
         while(!q.empty()){
             auto curr=q.front();
             q.pop();
@@ -44,8 +44,8 @@ public:
             }
             else if(nodedist<k){
                 for(auto i:graph[nodeVal]){
-                    if(!visited[i]){
-                        visited[i]=true;
+                    if(!visited.count(i)){
+                        visited.insert(i);
                         q.push(make_pair(i,nodedist+1));
                     }
                 }
