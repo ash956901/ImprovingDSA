@@ -11,34 +11,27 @@
  */
 class Solution {
 public:
-    TreeNode* bstFromPreorder(vector<int>& preorder) {
-        stack<TreeNode*> s;
-        TreeNode* curr=new TreeNode(preorder[0]);
-        TreeNode* root=curr;
-        for(int i=1;i<preorder.size();i++){
-            if(preorder[i]<curr->val){
-                TreeNode* temp=new TreeNode(preorder[i]);
-                curr->left=temp;
-                s.push(curr);
-                curr=temp;
-            }
-            else if(preorder[i]>curr->val){
-                    while(!s.empty() && preorder[i]>s.top()->val){
-                        curr=s.top();
-                        s.pop();
-                        
-                    }
-                    TreeNode* temp=new TreeNode(preorder[i]);
-                    curr->right=temp;
-
-                    curr=temp;
-               
-                }
-                if(!s.empty())
-                    cout<<s.top()->val<<" ";
-            
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        if(root==NULL){
+            TreeNode* t=new TreeNode(val);
+            return t;
         }
+
+        if(root->val>val){
+            root->left=insertIntoBST(root->left,val);
+        }
+        if(root->val<val){
+            root->right=insertIntoBST(root->right,val);
+        }
+        
 
         return root;
     }
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        TreeNode* temp=new TreeNode(preorder[0]);
+        for(int i=1;i<preorder.size();i++){
+            temp=insertIntoBST(temp,preorder[i]);
+        }  
+        return temp;  
+        }
 };
