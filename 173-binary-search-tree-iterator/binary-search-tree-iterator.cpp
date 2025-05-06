@@ -31,7 +31,6 @@ public:
                 temp=temp->left;
             }
         }
-        cout<<"RET:"<<ret<<endl;
         return ret;
     }
     
