@@ -11,6 +11,7 @@
  */
 class Solution {
 public:
+    //---------------------------Recursive solution(rln)------------------------------
     // TreeNode* prev=nullptr;
     // void solve(TreeNode* root){
     //     if(root==nullptr) return;
@@ -24,27 +25,46 @@ public:
     //     prev=root;
 
     // }
-    void flatten(TreeNode* root) {
-        if(root==nullptr) return;
-      stack<TreeNode*> s;
-      s.push(root);
-      while(!s.empty()){
-        auto top=s.top();
-        s.pop();
+    //-------------------------Stack Version(rln)--------------------------------------
+    // void flatten(TreeNode* root) {
+    //     if(root==nullptr) return;
+    //   stack<TreeNode*> s;
+    //   s.push(root);
+    //   while(!s.empty()){
+    //     auto top=s.top();
+    //     s.pop();
 
-        if(top->right){
-            s.push(top->right);
-        }
+    //     if(top->right){
+    //         s.push(top->right);
+    //     }
 
-         if(top->left){
-            s.push(top->left);
-        }
+    //      if(top->left){
+    //         s.push(top->left);
+    //     }
 
-        if(!s.empty()){
-            top->right=s.top();
-        }
-        top->left=nullptr;
+    //     if(!s.empty()){
+    //         top->right=s.top();
+    //     }
+    //     top->left=nullptr;
        
-      }
+    //   }
+    // }
+    TreeNode* prev=nullptr;
+    void flatten(TreeNode* root){
+        if(root==nullptr) return ;
+        TreeNode* temp=root;
+        while(temp!=nullptr){
+            if(temp->left!=nullptr){
+                prev=temp->left;
+                while(prev->right!=nullptr){
+                    prev=prev->right;
+                }
+                 prev->right=temp->right;
+                temp->right=temp->left;
+                temp->left=nullptr;
+            }
+           
+            temp=temp->right;
+        }
     }
 };
