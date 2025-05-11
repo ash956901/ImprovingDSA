@@ -14,7 +14,7 @@ public:
             st.push(i);
         }
 
-       
+        
         while (!st.empty()) {
             int h = heights[st.top()];
             st.pop();
@@ -33,7 +33,7 @@ public:
 
         for (auto& row : matrix) {
             for (int i = 0; i < n; ++i) {
-            
+               
                 heights[i] = row[i] == '1' ? heights[i] + 1 : 0;
             }
             maxRect = max(maxRect, largestRectangleArea(heights));
