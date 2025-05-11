@@ -2,32 +2,37 @@
 class Solution {
 public:
     int sumSubarrayMins(vector<int>& arr) {
-        long long sum=0;
-        stack<int> ns;
+        long long sum = 0;
+        stack<int> st; 
+        int n = arr.size();
 
-        for(int i=0;i<arr.size();i++){
-            while(!ns.empty() && arr[ns.top()]>=arr[i]){
-                int nsTop=ns.top();
-                ns.pop();
-                int step=nsTop?nsTop+1:1;
-                if(!ns.empty()){
-                    step=(nsTop-ns.top());
-                }
-                //the number of subarrays for which it is minimum, is (i-pse)*(nse-i)
-                sum=(sum%MOD)+(((i-nsTop)*step)*arr[nsTop])%MOD;
+        for (int i = 0; i < n; i++) {
+          
+            while (!st.empty() && arr[st.top()] >= arr[i]) {
+                int mid = st.top(); 
+                st.pop();
+
+                int left = st.empty() ? mid + 1 : mid - st.top();
+                int right = i - mid;
+
+               
+                sum = (sum + (long long)left * right % MOD * arr[mid] % MOD) % MOD;
             }
-            ns.push(i);
-        }
-        int n=arr.size();
-        
-        while(!ns.empty()){
-            int nsTop=ns.top();
-            ns.pop();
-            int np=(n-nsTop);
-            int pp=(!ns.empty())?(nsTop-ns.top()):(nsTop+1);
-            sum=(sum%MOD)+((long long)(np*pp)%MOD*arr[nsTop]%MOD)%MOD;
+
+            st.push(i);
         }
 
-        return (int)(sum%MOD);
+      
+        while (!st.empty()) {
+            int mid = st.top();
+            st.pop();
+
+            int left = st.empty() ? mid + 1 : mid - st.top();
+            int right = n - mid;
+
+            sum = (sum + (long long)left * right % MOD * arr[mid] % MOD) % MOD;
+        }
+
+        return (int)sum;
     }
 };
