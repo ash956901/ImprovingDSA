@@ -1,94 +1,44 @@
-#include <unordered_map>
-using namespace std;
-
-class DLLNode {
-public:
-    int key, value;
-    DLLNode *prev, *next;
-
-    DLLNode(int k, int v) : key(k), value(v), prev(nullptr), next(nullptr) {}
-};
-
 class LRUCache {
-private:
-    unordered_map<int, DLLNode*> cache;
-    int capacity, size;
-    DLLNode *head, *tail;
-
-    // Add node to the tail (most recently used position)
-    void addToTail(DLLNode* node) {
-        node->prev = tail;
-        node->next = nullptr;
-        if (tail) {
-            tail->next = node;
-        }
-        tail = node;
-        if (!head) {
-            head = node;
-        }
-    }
-
-    // Remove a node from the DLL
-    void removeNode(DLLNode* node) {
-        if (node->prev) {
-            node->prev->next = node->next;
-        } else {
-            // node is head
-            head = node->next;
-        }
-        if (node->next) {
-            node->next->prev = node->prev;
-        } else {
-            // node is tail
-            tail = node->prev;
-        }
-    }
-
-    // Move an existing node to the tail
-    void moveToTail(DLLNode* node) {
-        removeNode(node);
-        addToTail(node);
-    }
-
+    int capacity;
+    list<pair<int,int>> lt;
+    unordered_map<int,list<pair<int,int>>::iterator> mp;
 public:
-    LRUCache(int capacity)
-        : capacity(capacity), size(0), head(nullptr), tail(nullptr) {}
-
-    int get(int key) {
-        if (cache.find(key) == cache.end())
-            return -1;
-
-        DLLNode* node = cache[key];
-        // Move the accessed node to the tail (most recently used)
-        moveToTail(node);
-        return node->value;
+    LRUCache(int capacity) {
+        this->capacity=capacity;
     }
+    
+    int get(int key) {
+        if(mp.find(key)==mp.end()) return -1;
 
+        auto it=mp[key];
+        lt.splice(lt.begin(),lt,it);
+        return it->second;
+    }
+    
     void put(int key, int value) {
-        if (cache.find(key) != cache.end()) {
-            // Update the value and move the node to tail.
-            DLLNode* node = cache[key];
-            node->value = value;
-            moveToTail(node);
-        } else {
-            // Create a new node.
-            DLLNode* newNode = new DLLNode(key, value);
-
-            // If capacity is reached, remove the head node (LRU).
-            if (size == capacity) {
-                // Remove from cache map.
-                cache.erase(head->key);
-                // Remove from DLL.
-                DLLNode* oldHead = head;
-                removeNode(oldHead);
-                delete oldHead;
-                size--;
+        if(mp.find(key)!=mp.end()){
+            auto it=mp[key];
+            it->second=value;
+            lt.splice(lt.begin(),lt,it);
+            return;
+        }
+        else{
+            if(lt.size()==capacity){
+                int k=lt.back().first;
+                lt.pop_back();
+                mp.erase(k);
             }
 
-            // Add the new node to the DLL and cache.
-            addToTail(newNode);
-            cache[key] = newNode;
-            size++;
+            lt.push_front(make_pair(key,value));
+            mp[key]=lt.begin();
+            return;
         }
     }
 };
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
