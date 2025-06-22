@@ -1,40 +1,38 @@
 class Solution {
 public:
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-         unordered_map<int, list<int>> adj;
-         int n=graph.size();
+        int n = graph.size();
+        vector<vector<int>> revGraph(n);
         vector<int> indegree(n, 0);
-        vector<int> topo;
-        queue<int> q;
-        for (int i=0;i<n;i++) {
-            for(auto j:graph[i]){
-                adj[j].push_back(i);
-                indegree[i]++;
-            }
-        }
 
         
-        for (int i = 0; i <n; i++) {
-            if (indegree[i] == 0){
-                q.push(i);
-                topo.push_back(i);
+        for (int u = 0; u < n; ++u) {
+            for (int v : graph[u]) {
+                revGraph[v].push_back(u);
+                indegree[u]++;
             }
-                
         }
 
        
+        queue<int> q;
+        vector<int> safe;
+
+        for (int i = 0; i < n; ++i) {
+            if (indegree[i] == 0) q.push(i);
+        }
+
         while (!q.empty()) {
             int node = q.front(); q.pop();
+            safe.push_back(node);
 
-            for (int neighbor : adj[node]) {
-                indegree[neighbor]--;
-                if (indegree[neighbor] == 0){
-                    q.push(neighbor);
-                    topo.push_back(neighbor);
+            for (int neigh : revGraph[node]) {
+                indegree[neigh]--;
+                if (indegree[neigh] == 0) q.push(neigh);
             }
         }
-        }
-        sort(topo.begin(),topo.end());
-        return topo;
+
+       
+        sort(safe.begin(), safe.end());
+        return safe;
     }
 };
