@@ -28,8 +28,10 @@ public:
 
 
         }
-        reverse(topo.begin(),topo.end());
-        if(topo.size()==numCourses) return topo;
+       
+        if(topo.size()==numCourses) {
+             reverse(topo.begin(),topo.end());
+            return topo;}
         topo.clear();
         return topo;
 
