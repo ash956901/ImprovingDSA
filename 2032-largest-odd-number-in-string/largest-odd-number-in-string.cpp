@@ -1,17 +1,11 @@
-#include <bits/stdc++.h>
 class Solution {
 public:
     string largestOddNumber(string num) {
-        int i=num.size()-1;
-        bool check=false;
-        while(i>=0){
-            if(num[i]=='1'||num[i]=='3'||num[i]=='5'||num[i]=='7'||num[i]=='9'){
-                break;
+        for (int i = num.length() - 1; i >= 0; --i) {
+            if ((num[i] - '0') % 2 == 1) {
+                return num.substr(0, i + 1);
             }
-            i--;
         }
-
-        return num.substr(0,i+1);
-
+        return "";
     }
 };
