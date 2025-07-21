@@ -1,32 +1,33 @@
 class Solution {
 public:
-    bool search(vector<int>& nums, int target) {
-        int left = 0, right = nums.size() - 1;
+    bool search(vector<int>& arr, int target) {
+        int s=0;
+        int e=arr.size()-1;
+        while(s<=e){
+            int mid=s+(e-s)/2;
 
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-
-            if (nums[mid] == target) return true;
-
-           
-            if (nums[left] == nums[mid] && nums[mid] == nums[right]) {
-                left++;
-                right--;
-            }
           
-            else if (nums[left] <= nums[mid]) {
-                if (nums[left] <= target && target < nums[mid]) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
+
+
+            if(arr[mid]==target) return true;
+            if(arr[s]==arr[mid] && arr[mid]==arr[e]){
+                s++;
+                e--;
+            }
+            else if(arr[s]<=arr[mid]){
+                if(arr[s]<=target && target<arr[mid]){
+                    e=mid-1;
+                }
+                else{
+                    s=mid+1;
                 }
             }
-           
-            else {
-                if (nums[mid] < target && target <= nums[right]) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
+            else{
+                if(arr[mid]<target && target<=arr[e]){
+                    s=mid+1;
+                }
+                else{
+                    e=mid-1;
                 }
             }
         }
@@ -34,3 +35,4 @@ public:
         return false;
     }
 };
+
