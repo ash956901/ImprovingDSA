@@ -7,8 +7,8 @@ public:
         queue<int> q;
 
         for(auto i:prerequisites){
-            adj[i[0]].push_back(i[1]);
-            indegree[i[1]]++;
+            adj[i[1]].push_back(i[0]);
+            indegree[i[0]]++;
         }
 
         
